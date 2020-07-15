@@ -6,9 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 # Create your models here.
 class Receipe(models.Model):
     title = models.CharField(max_length=250)
-    img_src_1 = models.URLField()
-    img_src_2 = models.URLField()
-    img_src_3 = models.URLField()
+    img_src_1 = models.URLField(blank=True)
+    img_src_2 = models.URLField(blank=True)
+    img_src_3 = models.URLField(blank=True)
     steps = models.TextField(max_length=2500)
     ingredients = models.TextField(max_length=2500)
     meal_type = models.CharField(max_length=250)
