@@ -1,5 +1,5 @@
 from django.db import models
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 
@@ -12,6 +12,7 @@ class Receipe(models.Model):
     steps = models.TextField(max_length=2500)
     ingredients = models.TextField(max_length=2500)
     meal_type = models.CharField(max_length=250)
+    # author = models.User(CustomUser)
 
     def __str__(self):
         return self.title

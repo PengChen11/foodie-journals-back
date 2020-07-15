@@ -172,5 +172,5 @@ if ENVIRONMENT == 'production':
 
 AUTH_USER_MODEL = 'api.CustomUser'
 
-LOGIN_REDIRECT_URL = ':8000/receipes'
-LOGOUT_REDIRECT_URL = '8000/receipes'
+LOGIN_REDIRECT_URL = 'api'
+LOGOUT_REDIRECT_URL = 'api'

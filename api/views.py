@@ -24,3 +24,18 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     # success_url = 'https://foodie-journals-front-end.vercel.app/signup'
     # template_name = 'signup.html'
+
+
+class BreakfastApiView(generics.ListCreateAPIView):
+    queryset = Receipe.objects.filter(meal_type='Breakfast')
+    serializer_class = ReceipeSerializer
+
+class LunchApiView(generics.ListCreateAPIView):
+    queryset = Receipe.objects.filter(meal_type='Lunch')
+    serializer_class = ReceipeSerializer
+
+class DinnerApiView(generics.ListCreateAPIView):
+    queryset = Receipe.objects.filter(meal_type='Dinner')
+    serializer_class = ReceipeSerializer
+
+
