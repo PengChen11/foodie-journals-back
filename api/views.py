@@ -2,7 +2,7 @@ from rest_framework import generics
 
 from .models import Receipe
 from .serializers import ReceipeSerializer
-# from .permissions import IsAuthorOrReadOnly
+from .permissions import IsAuthorOrReadOnly
 
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -15,7 +15,7 @@ class ReceipeApiView(generics.ListCreateAPIView):
     serializer_class = ReceipeSerializer
 
 class ReceipeDetail(generics.RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Receipe.objects.all()
     serializer_class = ReceipeSerializer
 
