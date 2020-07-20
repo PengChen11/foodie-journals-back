@@ -1,41 +1,54 @@
-from rest_framework import generics
-
-from .models import Receipe
-from .serializers import ReceipeSerializer
+from .models import Recipe, CustomUser
+from .serializers import RecipesSerializer, UserCreateSerializer, UserListSerializer
 from .permissions import IsAuthorOrReadOnly
+from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView, CreateAPIView
+from rest_framework import filters
 
-from django.shortcuts import render
-from django.urls import reverse_lazy
-from django.views.generic.edit import CreateView
-from .forms import CustomUserCreationForm
+# Recipes views
+class RecipesList(ListAPIView):
+    search_fields = ['description', 'title', 'ingredients', 'meal_type', 'difficulty']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Recipe.objects.all()
+    serializer_class = RecipesSerializer
 
-# Create your views here.
-class ReceipeApiView(generics.ListCreateAPIView):
-    queryset = Receipe.objects.all()
-    serializer_class = ReceipeSerializer
+class RecipeDetail(RetrieveUpdateDestroyAPIView):
+    # permission_classes = (IsAuthorOrReadOnly,)
+    queryset = Recipe.objects.all()
+    serializer_class = RecipesSerializer
 
-class ReceipeDetail(generics.RetrieveUpdateDestroyAPIView):
+class RecipeCreate(CreateAPIView):
+    queryset = Recipe.objects.all()
+    serializer_class = RecipesSerializer
+
+class BreakfastApiView(ListAPIView):
+    queryset = Recipe.objects.filter(meal_type='Breakfast')
+    serializer_class = RecipesSerializer
+
+class LunchApiView(ListAPIView):
+    queryset = Recipe.objects.filter(meal_type='Lunch')
+    serializer_class = RecipesSerializer
+
+class DinnerApiView(ListAPIView):
+    queryset = Recipe.objects.filter(meal_type='Dinner')
+    serializer_class = RecipesSerializer
+
+
+# user views
+
+
+class UserCreate(CreateAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserCreateSerializer
+    permission_classes = ()
+
+class UserListView(ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserListSerializer
+
+class UserDetail(RetrieveUpdateDestroyAPIView):
     permission_classes = (IsAuthorOrReadOnly,)
-    queryset = Receipe.objects.all()
-    serializer_class = ReceipeSerializer
+    queryset = CustomUser.objects.all()
+    serializer_class = UserCreateSerializer
 
-
-class SignUpView(CreateView):
-    form_class = CustomUserCreationForm
-    # success_url = 'https://foodie-journals-front-end.vercel.app/signup'
-    # template_name = 'signup.html'
-
-
-class BreakfastApiView(generics.ListCreateAPIView):
-    queryset = Receipe.objects.filter(meal_type='Breakfast')
-    serializer_class = ReceipeSerializer
-
-class LunchApiView(generics.ListCreateAPIView):
-    queryset = Receipe.objects.filter(meal_type='Lunch')
-    serializer_class = ReceipeSerializer
-
-class DinnerApiView(generics.ListCreateAPIView):
-    queryset = Receipe.objects.filter(meal_type='Dinner')
-    serializer_class = ReceipeSerializer
 
 

@@ -7,16 +7,16 @@ from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
 # Create your models here.
-class Receipe(models.Model):
+class Recipe(models.Model):
     title = models.CharField(max_length=64)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     description = models.TextField(max_length=500)
     ingredients = models.TextField(max_length=2500)
     steps = models.TextField(max_length=2500)
     meal_type = models.CharField(max_length=16)
-    img_src_1 = models.URLField(blank=True)
-    img_src_2 = models.URLField(blank=True)
-    img_src_3 = models.URLField(blank=True)
+    img_src_1 = models.URLField(blank=True, max_length=2500)
+    img_src_2 = models.URLField(blank=True, max_length=2500)
+    img_src_3 = models.URLField(blank=True, max_length=2500)
     difficulty = models.CharField(max_length=16, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

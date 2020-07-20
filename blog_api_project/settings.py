@@ -134,22 +134,26 @@ STATICFILES_DIRS = [
 ]
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES' : [
-    #     'rest_framework.permissions.AllowAny',
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
     # ],
-    # 'DEFAULT_AUTHENTICATION_CLASSES' : [
-    #     'rest_framework_simplejwt.authentication.JWTAuthentication',
-    #     'rest_framework.authentication.SessionAuthentication',
-    #     'rest_framework.authentication.BasicAuthentication',
-    # ],
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES' : [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ],
+    # 'DEFAULT_RENDERER_CLASSES': (
+    #     'rest_framework.renderers.JSONRenderer',
+    # )
 }
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "https://foodie-journals-front-end.vercel.app",
+    "https://foodiejournals.com",
 ]
 
 CORS_ORIGIN_ALLOW_ALL = True
@@ -157,6 +161,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 CORS_ORIGIN_REGEX_WHITELIST = [
     # r"^https://snacks-next.\w+\.vercel.app$",
     r"^https://foodie-journals-front-end.\w+\.vercel.app$",
+    r"^https://foodiejournals.\w+\com$",
 ]
 
 # production
@@ -172,5 +177,4 @@ if ENVIRONMENT == 'production':
 
 AUTH_USER_MODEL = 'api.CustomUser'
 
-LOGIN_REDIRECT_URL = 'api'
-LOGOUT_REDIRECT_URL = 'api'
+
