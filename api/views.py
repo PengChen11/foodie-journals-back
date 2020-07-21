@@ -1,6 +1,7 @@
 from .models import Recipe, CustomUser
 from .serializers import RecipesSerializer, UserCreateSerializer, UserListSerializer
 from .permissions import IsAuthorOrReadOnly
+
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import filters
 
@@ -12,7 +13,7 @@ class RecipesList(ListAPIView):
     serializer_class = RecipesSerializer
 
 class RecipeDetail(RetrieveUpdateDestroyAPIView):
-    # permission_classes = (IsAuthorOrReadOnly,)
+    permission_classes = (IsAuthorOrReadOnly,)
     queryset = Recipe.objects.all()
     serializer_class = RecipesSerializer
 
@@ -33,15 +34,15 @@ class DinnerApiView(ListAPIView):
     serializer_class = RecipesSerializer
 
 
-# user views
-
-
+# User views
 class UserCreate(CreateAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserCreateSerializer
     permission_classes = ()
 
 class UserListView(ListAPIView):
+    search_fields = ['email']
+    filter_backends = (filters.SearchFilter,)
     queryset = CustomUser.objects.all()
     serializer_class = UserListSerializer
 
