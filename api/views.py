@@ -4,12 +4,20 @@ from .permissions import IsAuthorOrReadOnly
 
 from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView, ListCreateAPIView, CreateAPIView
 from rest_framework import filters
+# from django_filters.rest_framework import DjangoFilterBackend
 
 # Recipes views
 class RecipesList(ListAPIView):
     search_fields = ['description', 'title', 'ingredients', 'meal_type', 'difficulty']
     filter_backends = (filters.SearchFilter,)
     queryset = Recipe.objects.all()
+    serializer_class = RecipesSerializer
+
+class UserRecipesList(ListAPIView):
+    search_fields = ['author']
+    filter_backends = (filters.SearchFilter,)
+    queryset = Recipe.objects.all()
+    # queryset = Recipe.objects.filter(author=1)
     serializer_class = RecipesSerializer
 
 class RecipeDetail(RetrieveUpdateDestroyAPIView):

@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import RecipesList, RecipeDetail, BreakfastApiView, LunchApiView, DinnerApiView, RecipeCreate, UserCreate, UserListView, UserDetail
+from .views import RecipesList, RecipeDetail, BreakfastApiView, LunchApiView, DinnerApiView, RecipeCreate, UserCreate, UserListView, UserDetail, UserRecipesList
 
 urlpatterns = [
     # recipe views
@@ -9,6 +9,7 @@ urlpatterns = [
     path('recipes/lunch/',LunchApiView.as_view()),
     path('recipes/dinner/',DinnerApiView.as_view()),
     path('recipes/create/', RecipeCreate.as_view()),
+    path('recipes/user-list/', UserRecipesList.as_view()),
     # user views
     path('users/register/', UserCreate.as_view()),                          # create
     path('users/', UserListView.as_view()),
